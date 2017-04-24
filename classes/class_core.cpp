@@ -6,9 +6,20 @@
 #include "class_core.hpp"
 #include "class_headers.hpp"
 
+void test(){}
+
 void classcore::ClassSelection() {
   std::map<std::string, void (*)()> classes;
-  classes["CS Theory (465)"] = theory::ProjectSelection;
+  /*Spring 2016*/
+  classes["Exploration and Discovery I (CORE-106-19)"] = test;
+  classes["Calculus III (Math-233-F1)"] = test;
+  classes["Physics I: Motion (PHYS-151-01)"] = test;
+  classes["Intermediate Spanish I (SPAN-201-F5)"] = test;
+  /*Fall 2017*/
+  classes["Exploration and Discovery II (CORE-107-25)"] = test;
+  classes["Linear Algebra (MATH-225-F1)"] = test;
+  classes["Physics II: Waves and Matter (PHYS-152-01)"] = test;
+  classes["Theory of Computation (CS-456-01)"] = theory::ProjectSelection;
   std::vector<std::string> options;
   for (std::map<std::string, void (*)()>::iterator it = classes.begin();
        it != classes.end(); ++it) {
@@ -17,7 +28,7 @@ void classcore::ClassSelection() {
   options.push_back("Quit");
   std::string input = "";
   while (input != "Quit") {
-    ostendo::Window win(0.5, 0.5, 0.25, 0.25);
+    ostendo::Window win(0.75, 0.5, 0.125, 0.25);
     win.ToggleBorder();
     win.ToggleTitle("Classes");
     input = ostendo::Menu(win, options);
