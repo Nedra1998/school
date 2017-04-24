@@ -59,11 +59,25 @@ namespace theory {
         }
       }
     }
+    std::string String() {
+      if (move == 1) {
+        return (start_state + "," + read + "->" + end_state + "," + write +
+                ",R");
+      } else if (move == 0) {
+        return (start_state + "," + read + "->" + end_state + "," + write +
+                ",S");
+      } else if (move == -1) {
+        return (start_state + "," + read + "->" + end_state + "," + write +
+                ",L");
+      }
+      return ("");
+    }
     std::string start_state, end_state;
     char read, write;
     int move;
   };
   void TuringMachine();
-  int RunTuring(std::string start, std::vector<std::string> accept, std::vector<TuringInst> transitions);
+  int RunTuring(std::string start, std::vector<std::string> accept,
+                std::vector<TuringInst> transitions, bool last);
 }
 #endif
