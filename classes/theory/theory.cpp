@@ -6,7 +6,7 @@
 #include "theory.hpp"
 #include "theory_headers.hpp"
 
-void theory::ProjectSelection() {
+void theory::ProjectSelection(std::string str) {
   std::map<std::string, void (*)()> projects;
   projects["Turing Machine"] = TuringMachine;
   std::vector<std::string> options;
@@ -17,9 +17,9 @@ void theory::ProjectSelection() {
   options.push_back("Back");
   std::string input = "";
   while (input != "Back") {
-    ostendo::Window win(0.5, 0.5, 0.25, 0.25);
+    ostendo::Window win(0.75, 0.5, 0.125, 0.25);
     win.ToggleBorder();
-    win.ToggleTitle("CS Theory(465)");
+    win.ToggleTitle(str);
     input = ostendo::Menu(win, options);
     win.DelWin();
     std::map<std::string, void (*)()>::iterator it = projects.find(input);

@@ -29,3 +29,4 @@ q03,0->q00,_,R
 q03,X->qaccept,X,R
 q03,1->q10,_,R
 q04,X->q10,_,R
+q04,_->qaccept,_,R
