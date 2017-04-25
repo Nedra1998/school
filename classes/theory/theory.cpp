@@ -9,6 +9,7 @@
 void theory::ProjectSelection(std::string str) {
   std::map<std::string, void (*)()> projects;
   projects["Turing Machine"] = TuringMachine;
+  projects["Push Down Automata"] = PushDown;
   std::vector<std::string> options;
   for (std::map<std::string, void (*)()>::iterator it = projects.begin();
        it != projects.end(); ++it) {

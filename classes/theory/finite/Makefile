@@ -9,5 +9,3 @@ all: $(OBJ_FILES) subsystem
 
 .PHONY : subsystem
 subsystem:
-	@cd turing_machine && $(MAKE)
-	@cd push_down && $(MAKE)
