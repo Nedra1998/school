@@ -1,8 +1,9 @@
 #ifndef THEORY_PUSH_DOWN_HPP
 #define THEORY_PUSH_DOWN_HPP
+#include <pessum.h>
 #include <string>
 #include <vector>
-namespace theory{
+namespace theory {
   struct PushDownInst {
     PushDownInst(std::string str) {
       std::string sub_str = "";
@@ -19,12 +20,16 @@ namespace theory{
             end_state = sub_str;
             pos = 4;
           }
+          sub_str = "";
         } else if (str[i] == '-' && str[i + 1] == '>') {
           if (pos == 2) {
             pop = sub_str[0];
             pos = 3;
           }
+          sub_str = "";
           i++;
+        } else {
+          sub_str += str[i];
         }
       }
       push = sub_str[0];

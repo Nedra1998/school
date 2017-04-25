@@ -1,6 +1,6 @@
-#include "push_down.hpp"
 #include <ostendo.h>
 #include <fstream>
+#include "push_down.hpp"
 
 using namespace ostendo;
 
@@ -157,18 +157,17 @@ int theory::RunPushDown(std::string start, std::vector<std::string> accept,
       if (last_trans != -1) {
         data_win.Print(
             "Accepted: %s\nCurrent State: %s\nLast Transition: %s\nCurrent "
-            "Character:%c\nString Position: %i\nTop of Stack: %c\nTotal Steps: "
+            "Character:%c\nString Position: %i\nTotal Steps: "
             "%i",
             acc.c_str(), current_state.c_str(),
             transitions[last_trans].String().c_str(), str[position], position,
-            stack.end(), steps);
+            steps);
       } else {
         data_win.Print(
             "Accepted: %s\nCurrent State: %s\nLast Transition: NONE\nCurrent "
-            "Character:%c\nTape Position: %i\nTop of Stack: %c\nTotal Steps: "
+            "Character:%c\nTape Position: %i\nTotal Steps: "
             "%i",
-            acc.c_str(), current_state.c_str(), str[position], position, stack.end(),
-            steps);
+            acc.c_str(), current_state.c_str(), str[position], position, steps);
       }
     }
     int in = getch();
@@ -185,14 +184,22 @@ int theory::RunPushDown(std::string start, std::vector<std::string> accept,
       bool trans = false;
       for (int i = 0; i < transitions.size() && trans == false; i++) {
         if (current_state == transitions[i].start_state &&
-            str[position] == transitions[i].read &&
-            (transitions[i].pop == '_' || transitions[i].pop == stack.back())) {
+            str[position] == transitions[i].read && transitions[i].pop == '_') {
           steps++;
           current_state = transitions[i].end_state;
-          if(transitions[i].pop != '_'){
-            stack.pop_back();
+          if (transitions[i].push != '_') {
+            stack.push_back(transitions[i].push);
           }
-          if(transitions[i].push != '_'){
+          position++;
+          trans = true;
+          last_trans = i;
+        } else if (current_state == transitions[i].start_state &&
+                   str[position] == transitions[i].read && stack.size() > 0 &&
+                   stack.back() == transitions[i].pop) {
+          steps++;
+          current_state = transitions[i].end_state;
+          stack.pop_back();
+          if (transitions[i].push != '_') {
             stack.push_back(transitions[i].push);
           }
           position++;
@@ -200,10 +207,17 @@ int theory::RunPushDown(std::string start, std::vector<std::string> accept,
           last_trans = i;
         }
       }
-      for (int i = 0; i < accept.size(); i++) {
-        if (current_state == accept[i]) {
+      if (position == str.size()) {
+        if (empty_stack == true && stack.size() == 0) {
           accepted = 1;
           fast = false;
+        } else if (empty_stack == false) {
+          for (int i = 0; i < accept.size() && accepted == -1; i++) {
+            if (current_state == accept[i]) {
+              accepted = 1;
+              fast = false;
+            }
+          }
         }
       }
       if (trans == false && accepted == -1) {
