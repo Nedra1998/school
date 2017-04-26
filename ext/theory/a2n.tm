@@ -1,0 +1,11 @@
+q0,b->q0,b,R
+q0,a->q1,b,R
+q0,_->q3,_,L
+q1,a->q0,a,R
+q1,b->q1,b,R
+q1,_->q2,_,L
+q2,b->q2,b,L
+q2,_->qaccept,_,R
+q3,a->q3,a,L
+q3,b->q3,b,L
+q3,_->q0,_,R
